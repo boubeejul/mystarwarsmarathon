@@ -1,35 +1,34 @@
 import LogoMain from "../../assets/LogoMain.svg"
-import { Container, Info, Wrapper, LoginForm, LoginFormGroup } from "./style"
+import { Container, Info, Wrapper, LoginForm, LoginFormGroup } from "../Login/style"
 import { Button } from "../../components/SubmitButton"
 import { axiosURL } from "../../services/axiosURL"
-import { useState, useContext } from "react"
+import { useState } from "react"
 import { useNavigate } from "react-router-dom"
-import { UserContext } from "../../contexts/UserContext"
 
-export function Login() {
+export function Register() {
 
     const navigate = useNavigate()
-    const user = useContext(UserContext)
 
     const [form, setForm] = useState({
         username: "",
-        password: ""
+        password: "",
+        email: "",
+        role: ["user"]
     })
 
     const handleSubmit = (e) => {
         e.preventDefault()
-        handleLogin()
+        handleRegister()
     }
 
     const handleForm = (e) => {
         setForm({ ...form, [e.target.id]: e.target.value })
     }
 
-    const handleLogin = async () => {
+    const handleRegister = async () => {
         try {
-            const response = await axiosURL.post("/auth/signin", form)
-            user.getUser(response.data)
-            navigate("/mymarathons")
+            const response = await axiosURL.post("/auth/signup", form)
+            console.log(response)
         } catch (error) {
             console.log(error)
         }
@@ -44,9 +43,9 @@ export function Login() {
             </Info>
 
             <Wrapper>
-                <h1>Faça seu login</h1>
+                <h1>Cadastre-se</h1>
 
-                <LoginForm onSubmit={e => handleSubmit(e)}>
+                <LoginForm onSubmit={e => handleSubmit(e)} role="form">
                     <LoginFormGroup>
                         <label htmlFor="username">Usuário</label>
                         <input id="username" type="text" placeholder="Usuário123" required onChange={e => handleForm(e)}></input>
@@ -57,9 +56,14 @@ export function Login() {
                         <input id="password" type="password" placeholder="******" required onChange={e => handleForm(e)}></input>
                     </LoginFormGroup>
 
-                    <span>Não possui conta? <span onClick={() => navigate("/register")}>Cadastre-se</span></span>
+                    <LoginFormGroup>
+                        <label htmlFor="email">Email</label>
+                        <input id="email" type="email" placeholder="seuemail@mail.com" required onChange={e => handleForm(e)}></input>
+                    </LoginFormGroup>
 
-                    <Button text="Entrar"></Button>
+                    <span>Já possui conta? <span onClick={() => navigate("/")}>Faça seu login</span></span>
+
+                    <Button text="Cadastrar"></Button>
                 </LoginForm>
             </Wrapper>
         </Container>

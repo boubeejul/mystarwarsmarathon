@@ -69,6 +69,13 @@ export const LoginForm = styled.form`
     label {
         font-weight: 700;
     }
+
+    span {
+        span {
+            font-weight: bold;
+            cursor: pointer;
+        }
+    }
 `
 
 export const LoginFormGroup = styled.div`
