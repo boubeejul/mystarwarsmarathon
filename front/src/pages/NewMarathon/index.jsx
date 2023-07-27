@@ -1,6 +1,5 @@
 import {
     Container,
-    Navigation,
     Header,
     Form,
     FormGroup,
@@ -11,10 +10,12 @@ import {
 import Checkbox from '@mui/material/Checkbox';
 import FormControlLabel from '@mui/material/FormControlLabel';
 import { Button } from "../../components/SubmitButton/index"
-import { useNavigate, useLocation } from "react-router-dom"
+import { useNavigate } from "react-router-dom"
 import { useContext, useEffect, useState } from "react";
 import { UserContext } from "../../contexts/UserContext"
 import { axiosURL } from "../../services/axiosURL"
+import { Navigation } from "../../components/Navigation";
+import { toast } from "react-toastify";
 
 export function NewMarathon() {
 
@@ -67,10 +68,15 @@ export function NewMarathon() {
                 })
             }
 
+            toast.success('Maratona registrada com sucesso!', {
+                theme: "dark"
+            })
             navigate("/mymarathons")
 
         } catch (error) {
-            console.log(error)
+            toast.error(`(${error.response.status})` + ' Ocorreu um erro ao tentar cadastrar uma maratona. Tente novamente.', {
+                theme: "dark"
+            })
         }
     }
 
@@ -111,10 +117,7 @@ export function NewMarathon() {
     return (
         <Container>
 
-            <Navigation>
-                <span className="navTitle" onClick={() => navigate("/mymarathons")}>Minhas Maratonas</span>
-                <span className="navTitle" onClick={() => navigate("/newmarathon")}>Nova Maratona</span>
-            </Navigation>
+            <Navigation />
 
             <Wrapper>
                 <Header>
@@ -154,7 +157,7 @@ export function NewMarathon() {
                                             }} />} label={movie.nome_filme} />
                                     )
                                 })
-                            ) : (null)
+                            ) : (<span>Carregando...</span>)
                         }
 
                     </FormGroup>

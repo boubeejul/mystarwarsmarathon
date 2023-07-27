@@ -1,10 +1,12 @@
-import LogoMain from "../../assets/LogoMain.svg"
+import LogoMain from "../../assets/LogoMain.png"
 import { Container, Info, Wrapper, LoginForm, LoginFormGroup } from "./style"
 import { Button } from "../../components/SubmitButton"
 import { axiosURL } from "../../services/axiosURL"
 import { useState, useContext } from "react"
 import { useNavigate } from "react-router-dom"
 import { UserContext } from "../../contexts/UserContext"
+import { toast } from "react-toastify";
+import { FaUserCircle, FaLock } from 'react-icons/fa';
 
 export function Login() {
 
@@ -28,10 +30,15 @@ export function Login() {
     const handleLogin = async () => {
         try {
             const response = await axiosURL.post("/auth/signin", form)
+
             user.getUser(response.data)
+            
             navigate("/mymarathons")
         } catch (error) {
-            console.log(error)
+
+            toast.error(`(${error.response.status})` + ' Ocorreu um erro ao tentar realizar o login. Tente novamente.', {
+                theme: "dark"
+            })
         }
     }
 
@@ -48,12 +55,12 @@ export function Login() {
 
                 <LoginForm onSubmit={e => handleSubmit(e)}>
                     <LoginFormGroup>
-                        <label htmlFor="username">Usuário</label>
+                        <label htmlFor="username"><FaUserCircle/> Usuário</label>
                         <input id="username" type="text" placeholder="Usuário123" required onChange={e => handleForm(e)}></input>
                     </LoginFormGroup>
 
                     <LoginFormGroup>
-                        <label htmlFor="password">Senha</label>
+                        <label htmlFor="password"><FaLock/> Senha</label>
                         <input id="password" type="password" placeholder="******" required onChange={e => handleForm(e)}></input>
                     </LoginFormGroup>
 

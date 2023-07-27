@@ -28,10 +28,27 @@ export const UpdateButton = styled.button`
     align-items: center;
     justify-content: center;
     padding: 10px;
+    gap: 10px;
     width: 200px;
 
     background-color: var(--amarelo);
     color: var(--preto);
+    border-radius: 7px;
+    border: none;
+    font-weight: bold;
+    font-size: 16px;
+    cursor: pointer;
+`
+
+export const BackButton = styled.button`
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 10px;
+    width: 200px;
+
+    background-color: var(--preto);
+    color: var(--branco);
     border-radius: 7px;
     border: none;
     font-weight: bold;

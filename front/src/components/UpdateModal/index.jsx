@@ -1,4 +1,4 @@
-import { DeleteButton, Wrapper, UpdateButton } from "./style"
+import { BackButton, Wrapper, UpdateButton } from "./style"
 import Modal from '@mui/material/Modal';
 import Box from '@mui/material/Box';
 import Radio from '@mui/material/Radio';
@@ -8,6 +8,7 @@ import { useState, useContext } from "react";
 import { axiosURL } from "../../services/axiosURL";
 import { UserContext } from "../../contexts/UserContext";
 import { useNavigate } from "react-router-dom";
+import { GrUpdate } from 'react-icons/gr';
 
 export function UpdateModal(props) {
 
@@ -58,7 +59,7 @@ export function UpdateModal(props) {
 
     return (
         <>
-            <UpdateButton onClick={handleOpen}>Atualizar status</UpdateButton>
+            <UpdateButton onClick={handleOpen}><GrUpdate/> Atualizar status</UpdateButton>
 
             <Modal
                 open={open}
@@ -86,7 +87,7 @@ export function UpdateModal(props) {
                         fontWeight: 'bold'
                     }}>Atualizar status da maratona</span>
 
-                    <label htmlFor="status">Selecione o status</label>
+                    <label htmlFor="status" style={{fontWeight: 'bold'}}>Selecione o status</label>
                     <RadioGroup
                         id="status"
                         aria-labelledby="status da maratona"
@@ -118,8 +119,8 @@ export function UpdateModal(props) {
                     </RadioGroup>
 
                     <Wrapper>
-                        <DeleteButton onClick={handleUpdate}>Atualizar</DeleteButton>
-                        <UpdateButton onClick={handleClose}>Voltar</UpdateButton>
+                        <UpdateButton onClick={handleUpdate}>Atualizar</UpdateButton>
+                        <BackButton onClick={handleClose}>Voltar</BackButton>
                     </Wrapper>
                 </Box>
             </Modal>

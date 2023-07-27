@@ -8,17 +8,12 @@ export const Container = styled.main`
     flex-direction: column;
     gap: 45px;
     padding-bottom: 20px;
-`
 
-export const Navigation = styled.div`
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-
-    .navTitle {
-        font-size: 30px;
-        font-weight: bold;
-        cursor: pointer;
+    @media (max-width: 1024px) {
+        width: 70%;
+    }
+    @media (max-width: 768px) {
+        width: 90%;
     }
 `
 
@@ -77,8 +72,15 @@ export const FormGroup = styled.div`
 export const FormGroupDate = styled.div`
     display: flex;
     flex-direction: row;
-    gap: 70px;
+    justify-content: space-between;
+    align-items: center;
+    gap: 20px;
     width: 100%;
+    flex-wrap: wrap;
+
+    div {
+        width: 300px;
+    }
 `
 
 

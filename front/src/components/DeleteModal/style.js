@@ -3,6 +3,7 @@ import styled from 'styled-components'
 export const DeleteButton = styled.button`
     display: flex;
     align-items: center;
+    gap: 10px;
     justify-content: center;
     padding: 10px;
     width: 200px;

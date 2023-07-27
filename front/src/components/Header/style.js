@@ -10,16 +10,44 @@ export const Container = styled.header`
     img {
         width: 320px;
     }
+
+    @media (max-width: 767px) {
+        padding: 10px;
+
+        img {
+            width: 200px;
+        }
+    }
+    @media (max-width: 420px) {
+        padding: 10px;
+
+        img {
+            width: 160px;
+        }
+    }
 `
 
 export const UserWrapper = styled.div`
-    width: 150px;
+    width: 220px;
     display: flex;
     justify-content: space-between;
     align-items: center;
     
     span {
         font-weight: bold;
+    }
+
+    .username {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+    }
+
+    @media (max-width: 767px) {
+       width: 180px;
+    }
+    @media (max-width: 420px) {
+        width: 160px;
     }
 `
 

@@ -1,4 +1,4 @@
-import LogoHeader from "../../assets/LogoHeader.svg"
+import LogoHeader from "../../assets/LogoHeader.png"
 import { Container, UserWrapper, UpdateButton, DeleteButton, Wrapper } from "./style"
 import { Outlet, useNavigate } from "react-router-dom"
 import { useContext, useState } from "react"
@@ -6,6 +6,8 @@ import { UserContext } from "../../contexts/UserContext"
 import Button from '@mui/material/Button';
 import Modal from '@mui/material/Modal';
 import Box from '@mui/material/Box';
+import { RiLogoutBoxRFill } from 'react-icons/ri';
+import { FaUser } from 'react-icons/fa';
 
 export function Header() {
 
@@ -26,9 +28,9 @@ export function Header() {
                 <img src={LogoHeader} alt="logo do site" />
 
                 <UserWrapper>
-                    <span>{getUser.user.username}</span>
+                    <span className="username"><FaUser/> {getUser.user.username}</span>
 
-                    <Button sx={{ color: 'var(--branco)', fontFamily: 'Rajdhani', fontSize: 18, fontWeight: 'bold' }} onClick={handleOpen}>Sair</Button>
+                    <Button sx={{ color: 'var(--branco)', fontFamily: 'Rajdhani', fontSize: 18, fontWeight: 'bold', gap: 2 }} onClick={handleOpen}>Sair <RiLogoutBoxRFill/></Button>
                     <Modal
                         open={open}
                         onClose={handleClose}

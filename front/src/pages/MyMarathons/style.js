@@ -8,17 +8,12 @@ export const Container = styled.main`
     flex-direction: column;
     gap: 45px;
     padding-bottom: 20px;
-`
 
-export const Navigation = styled.div`
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-
-    .navTitle {
-        font-size: 30px;
-        font-weight: bold;
-        cursor: pointer;
+    @media (max-width: 1024px) {
+        width: 70%;
+    }
+    @media (max-width: 768px) {
+        width: 90%;
     }
 `
 
@@ -29,6 +24,7 @@ export const Marathon = styled.div`
 
     background-color: var(--cinza-primario);
     border-bottom: 7px solid var(--amarelo);
+    border-top: 7px solid var(--amarelo);
     border-radius: 7px;
 `
 
@@ -49,9 +45,17 @@ export const MarathonInfo = styled.div`
     padding-bottom: 15px;
 
     span {
+        display: flex;
+        align-items: center;
+        gap: 5px;
+
         span {
             font-weight: bold;
         }
+    }
+    @media (max-width: 1439px) {
+        flex-direction: column;
+        align-items: center;
     }
 `
 
@@ -60,6 +64,8 @@ export const MarathonOptions = styled.div`
     justify-content: space-evenly;
     padding: 20px;
     margin-top: 20px;
+    flex-wrap: wrap;
+    gap: 40px;
 `
 
 export const DeleteButton = styled.button`
@@ -114,6 +120,12 @@ export const Movie = styled.div`
     img {
         width: 100px;
     }
+
+    @media (max-width: 728px) {
+        width: auto;
+        justify-content: center;
+        align-items: center;
+    }
 `
 
 export const MovieInfo = styled.div`
@@ -125,6 +137,14 @@ export const MovieInfo = styled.div`
     .movieTitle {
         font-weight: bold;
         font-size: 20px;
+    }
+
+    @media (max-width: 728px) {
+        margin-top: 20px;
+        width: 100%;
+        text-align: center;
+        justify-content: center;
+        align-items: center;
     }
 `
 

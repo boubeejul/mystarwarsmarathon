@@ -5,6 +5,8 @@ import { useState, useContext } from "react";
 import { axiosURL } from "../../services/axiosURL";
 import { UserContext } from "../../contexts/UserContext";
 import { useNavigate } from "react-router-dom";
+import { MdCancel } from 'react-icons/md';
+import { toast } from "react-toastify";
 
 export function DeleteModal(props) {
 
@@ -29,14 +31,16 @@ export function DeleteModal(props) {
             navigate(0)
 
         } catch (error) {
-            console.log(error)
+            toast.error(`(${error.response.status})` + ' Ocorreu um erro ao apagar a maratona. Tente novamente.', {
+                theme: "dark"
+            })
         }
     }
 
 
     return (
         <>
-            <DeleteButton onClick={handleOpen}>Apagar maratona</DeleteButton>
+            <DeleteButton onClick={handleOpen}><MdCancel/>Apagar maratona</DeleteButton>
 
             <Modal
                 open={open}

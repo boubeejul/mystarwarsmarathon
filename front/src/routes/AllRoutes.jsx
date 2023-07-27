@@ -8,6 +8,7 @@ import { UserProvider } from "../contexts/UserContext";
 import { UserContext } from "../contexts/UserContext";
 import { useContext } from "react";
 import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css'
 export function AllRoutes() {
 
     const getUser = useContext(UserContext)

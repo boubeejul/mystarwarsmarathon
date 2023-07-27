@@ -9,6 +9,32 @@ export const Container = styled.main`
     justify-content: center;
     gap: 100px;
 
+    img {
+        width: 350px;
+    }
+
+    @media (max-width: 1024px) {
+        margin-top: 50px;
+        gap: 40px;
+
+        h2 {
+            font-size: 24px;
+        }
+        img {
+            width: 320px;
+        }
+    }
+    @media (max-width: 768px) {
+        margin-top: 50px;
+        gap: 40px;
+
+        h2 {
+            font-size: 20px;
+        }
+        img {
+            width: 280px;
+        }
+    }
     @media (max-width: 420px) {
         margin-top: 50px;
         gap: 40px;
@@ -20,6 +46,8 @@ export const Container = styled.main`
             width: 200px;
         }
     }
+    
+    
 `
 
 export const Info = styled.div`
@@ -43,6 +71,7 @@ export const Wrapper = styled.div`
     gap: 20px;
     justify-content: center;
     align-items: center;
+    background-color: var(--preto);
 
     border: 1px solid var(--branco);
     border-radius: 7px;
@@ -50,6 +79,10 @@ export const Wrapper = styled.div`
 
     h1 {
         text-align: center;
+    }
+
+    @media (max-width: 768px) {
+        width: 250px;
     }
 `
 
@@ -68,6 +101,9 @@ export const LoginForm = styled.form`
 
     label {
         font-weight: 700;
+        display: flex;
+        align-items: center;
+        gap: 10px;
     }
 
     span {
