@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.app.mystarwarsmarathon.dto.MaratonaDTO;
 import com.app.mystarwarsmarathon.entities.Maratona;
 import com.app.mystarwarsmarathon.services.MaratonaService;
 
@@ -32,7 +33,7 @@ public class MaratonaController {
 	}
 	
 	@GetMapping("/{id}")
-	public ResponseEntity<Maratona> getMaratonaById(@PathVariable Integer id) {
+	public ResponseEntity<MaratonaDTO> getMaratonaById(@PathVariable Integer id) {
 		return new ResponseEntity<>(maratonaService.getMaratonaById(id), HttpStatus.OK);
 	}
 	

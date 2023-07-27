@@ -59,7 +59,7 @@ export const MarathonOptions = styled.div`
     display: flex;
     justify-content: space-evenly;
     padding: 20px;
-    width: 100%;
+    margin-top: 20px;
 `
 
 export const DeleteButton = styled.button`
@@ -75,6 +75,7 @@ export const DeleteButton = styled.button`
     border: none;
     font-weight: bold;
     font-size: 16px;
+    cursor: pointer;
 `
 
 export const UpdateButton = styled.button`
@@ -90,6 +91,7 @@ export const UpdateButton = styled.button`
     border: none;
     font-weight: bold;
     font-size: 16px;
+    cursor: pointer;
 `
 
 export const MovieList = styled.div`
@@ -103,12 +105,11 @@ export const MovieList = styled.div`
 `
 
 export const Movie = styled.div`
-    max-width: 475px;
+    width: 500px;
     display: flex;
     flex-wrap: wrap;
-    gap: 20px;
     align-items: center;
-    justify-content: center;
+    justify-content: space-between;
 
     img {
         width: 100px;
@@ -117,6 +118,7 @@ export const Movie = styled.div`
 
 export const MovieInfo = styled.div`
     display: flex;
+    width: 70%;
     flex-direction: column;
     text-align: left;
 
@@ -124,6 +126,14 @@ export const MovieInfo = styled.div`
         font-weight: bold;
         font-size: 20px;
     }
+`
+
+export const Wrapper = styled.div`
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 30px;
 `
 
 

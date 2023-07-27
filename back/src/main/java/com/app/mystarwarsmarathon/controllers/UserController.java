@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.app.mystarwarsmarathon.dto.UserDTO;
 import com.app.mystarwarsmarathon.entities.User;
 import com.app.mystarwarsmarathon.services.UserService;
 
@@ -28,7 +29,7 @@ public class UserController {
 	}
 	
 	@GetMapping("/{id}")
-	public ResponseEntity<User> getUserById(@PathVariable Integer id) {
+	public ResponseEntity<UserDTO> getUserById(@PathVariable Integer id) {
 		return new ResponseEntity<>(userService.getUserById(id), HttpStatus.OK);
 	}
 	

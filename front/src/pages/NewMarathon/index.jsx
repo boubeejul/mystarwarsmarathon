@@ -67,6 +67,8 @@ export function NewMarathon() {
                 })
             }
 
+            navigate("/mymarathons")
+
         } catch (error) {
             console.log(error)
         }

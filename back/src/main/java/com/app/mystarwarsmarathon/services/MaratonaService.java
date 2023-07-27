@@ -1,10 +1,18 @@
 package com.app.mystarwarsmarathon.services;
 
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
+import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.app.mystarwarsmarathon.dto.FilmeDTO;
+import com.app.mystarwarsmarathon.dto.Filme_MaratonaDTO;
+import com.app.mystarwarsmarathon.dto.MaratonaDTO;
+import com.app.mystarwarsmarathon.dto.UserMaratonaDTO;
+import com.app.mystarwarsmarathon.entities.Filme_Maratona;
 import com.app.mystarwarsmarathon.entities.Maratona;
 import com.app.mystarwarsmarathon.repositories.MaratonaRepository;
 
@@ -18,8 +26,31 @@ public class MaratonaService {
 		return maratonaRepository.findAll();
 	}
 
-	public Maratona getMaratonaById(Integer id) {
-		return maratonaRepository.findById(id).orElse(null);
+	public MaratonaDTO getMaratonaById(Integer id) {
+		ModelMapper modelMapper = new ModelMapper();
+
+		Maratona maratona = maratonaRepository.findById(id).orElse(null);
+
+		if (maratona != null) {
+			MaratonaDTO maratonaDTO = modelMapper.map(maratona, MaratonaDTO.class);
+
+			Set<Filme_MaratonaDTO> fmDTO = new HashSet<>();
+
+			for (Filme_Maratona fm : maratona.getLista_filme_maratona()) {
+				Filme_MaratonaDTO newfmDTO = modelMapper.map(fm, Filme_MaratonaDTO.class);
+				FilmeDTO newFilmeDTO = modelMapper.map(fm.getFilme(), FilmeDTO.class);
+				newfmDTO.setFilme(newFilmeDTO);
+				fmDTO.add(newfmDTO);
+			}
+
+			maratonaDTO.setFilmes(fmDTO);
+			
+			UserMaratonaDTO userDTO = modelMapper.map(maratona.getUser(), UserMaratonaDTO.class);
+			maratonaDTO.setUser(userDTO);
+			return maratonaDTO;
+		}
+		return null;
+
 	}
 
 	public Maratona saveMaratona(Maratona maratona) {

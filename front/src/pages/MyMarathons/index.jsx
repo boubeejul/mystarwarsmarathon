@@ -9,18 +9,21 @@ import {
     UpdateButton,
     Movie,
     MovieInfo,
-    MovieList
+    MovieList,
+    Wrapper
 } from "./style"
 import { useNavigate, useLocation } from "react-router-dom"
 import { useContext, useState, useEffect } from "react"
 import { UserContext } from "../../contexts/UserContext"
 import { axiosURL } from "../../services/axiosURL"
+import { DeleteModal } from "../../components/DeleteModal"
+import { UpdateModal } from "../../components/UpdateModal"
 
 export function MyMarathons() {
 
     const navigate = useNavigate()
     const getUser = useContext(UserContext)
-    const [userData, setUserData] = useState([])
+    const [userMarathons, setUserMarathons] = useState([])
     const [isLoading, setLoading] = useState(true)
 
     const fetchData = async () => {
@@ -30,7 +33,7 @@ export function MyMarathons() {
                     Authorization: `Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhZG1pbiIsImlhdCI6MTY5MDQ2NzkyMiwiZXhwIjoxNjkwNTU0MzIyfQ.1WWPV2ntOH4Ef4I1ksIiUQVKtZFbaDklzsJeaiPomog`
                 }
             })
-            setUserData(response.data)
+            setUserMarathons(response.data)
         } catch (error) {
             console.log(error)
         }
@@ -52,7 +55,7 @@ export function MyMarathons() {
 
             {
                 !isLoading ? (
-                    userData.maratonas.map((maratona) => {
+                    userMarathons.maratonas.map((maratona) => {
                         return (
                             <Marathon key={maratona.id_maratona}>
                                 <Header>
@@ -63,31 +66,38 @@ export function MyMarathons() {
                                         <span><span>Filmes:</span> 3</span>
                                         <span><span>Tempo total:</span> x</span>
                                         <span><span>Status:</span> {maratona.status}</span>
-                                        <MarathonOptions>
-                                            <DeleteButton>Apagar maratona</DeleteButton>
-                                            <UpdateButton>Atualizar status</UpdateButton>
-                                        </MarathonOptions>
                                     </MarathonInfo>
                                 </Header>
 
                                 <MovieList>
-                                    {/* {
-                                        userData.maratonas.lista_filme_maratona.map((filme) => {
+                                    {
+                                        maratona.filmes.map((filme) => {
                                             return (
-                                                <Movie key={filme.id_filme}>
-                                                    <img src={filme.imagem_URL} alt="cartaz do filme" />
+                                                <Movie key={filme.filme.id_filme}>
+                                                    <img src={filme.filme.imagem_URL} alt="cartaz do filme" />
 
                                                     <MovieInfo>
-                                                        <span className="movieTitle">{filme.nome_filme}</span>
-                                                        <span>Duração: {filme.duracao} min</span>
-                                                        <span>Ano: {filme.ano}</span>
+                                                        <span className="movieTitle">{filme.filme.nome_filme}</span>
+                                                        <span>Duração: {filme.filme.duracao} min</span>
+                                                        <span>Ano: {filme.filme.ano}</span>
                                                     </MovieInfo>
                                                 </Movie>
                                             )
                                         })
-                                    } */}
+                                    }
 
                                 </MovieList>
+
+                                <MarathonOptions>
+                                    <DeleteModal
+                                        id={maratona.id_maratona}
+                                        nome={maratona.nome_maratona}
+                                        filme_maratona={maratona.filmes}
+                                    ></DeleteModal>
+                                    <UpdateModal
+                                        maratona={maratona}
+                                    ></UpdateModal>
+                                </MarathonOptions>
                             </Marathon>
                         )
                     })

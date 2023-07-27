@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.app.mystarwarsmarathon.dto.FilmeDTO;
 import com.app.mystarwarsmarathon.entities.Filme;
 import com.app.mystarwarsmarathon.services.FilmeService;
 
@@ -32,7 +33,7 @@ public class FilmeController {
 	}
 	
 	@GetMapping("/{id}")
-	public ResponseEntity<Filme> getFilmeById(@PathVariable Integer id) {
+	public ResponseEntity<FilmeDTO> getFilmeById(@PathVariable Integer id) {
 		return new ResponseEntity<>(filmeService.getFilmeById(id), HttpStatus.OK);
 	}
 	
