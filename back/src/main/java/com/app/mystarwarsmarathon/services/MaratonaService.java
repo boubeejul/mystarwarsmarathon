@@ -33,18 +33,22 @@ public class MaratonaService {
 
 		if (maratona != null) {
 			MaratonaDTO maratonaDTO = modelMapper.map(maratona, MaratonaDTO.class);
+			int tempo_total = 0;
 
 			Set<Filme_MaratonaDTO> fmDTO = new HashSet<>();
 
 			for (Filme_Maratona fm : maratona.getLista_filme_maratona()) {
 				Filme_MaratonaDTO newfmDTO = modelMapper.map(fm, Filme_MaratonaDTO.class);
 				FilmeDTO newFilmeDTO = modelMapper.map(fm.getFilme(), FilmeDTO.class);
+				
+				tempo_total += fm.getFilme().getDuracao();
+				
 				newfmDTO.setFilme(newFilmeDTO);
 				fmDTO.add(newfmDTO);
 			}
 
 			maratonaDTO.setFilmes(fmDTO);
-			
+			maratonaDTO.setTempo_total(tempo_total);
 			UserMaratonaDTO userDTO = modelMapper.map(maratona.getUser(), UserMaratonaDTO.class);
 			maratonaDTO.setUser(userDTO);
 			return maratonaDTO;

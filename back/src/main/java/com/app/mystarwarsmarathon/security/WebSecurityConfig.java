@@ -42,8 +42,8 @@ public class WebSecurityConfig {
             .exceptionHandling(handling -> handling.authenticationEntryPoint(unauthorizedHandler))
             .sessionManagement(sess -> sess.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
             .authorizeHttpRequests(auth -> auth
-                    .requestMatchers("/auth/**", "/roles", "/maratona/**", "/filme/**", "/filme_maratona/**").permitAll()
-                    .requestMatchers("/users/**").hasRole("ADMIN")
+            		.requestMatchers("/auth/**", "/roles", "/maratona/**", "/filme/**", "/filme_maratona/**").permitAll()
+                    .requestMatchers("/users/**").hasAnyRole("USER", "ADMIN")
                     .anyRequest().authenticated())
 		;		
 		

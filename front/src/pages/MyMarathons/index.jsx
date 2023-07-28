@@ -8,35 +8,42 @@ import {
     MovieInfo,
     MovieList,
     UserStatistics,
-    Progress,
-    UserMarathonInfo
+    UserMarathonInfo,
+    HeaderStatistics,
+    ShowButton,
+    Filters,
+    Search
 } from "./style"
-import { useContext, useState, useEffect } from "react"
+import { useContext, useState, useEffect, useDeferredValue } from "react"
 import { UserContext } from "../../contexts/UserContext"
 import { axiosURL } from "../../services/axiosURL"
 import { DeleteModal } from "../../components/DeleteModal"
 import { UpdateModal } from "../../components/UpdateModal"
 import { Navigation } from "../../components/Navigation"
 import { BsFillCalendarFill, BsInfoCircleFill } from 'react-icons/bs';
-import { BiSolidTimeFive } from 'react-icons/bi';
+import { BiSolidTimeFive, BiSearchAlt } from 'react-icons/bi';
+import { AiOutlineAreaChart } from 'react-icons/ai';
 import { FaPlay } from 'react-icons/fa';
-import LinearProgress from '@mui/material/LinearProgress';
+import { ImMenu } from 'react-icons/im';
 
 export function MyMarathons() {
 
     const getUser = useContext(UserContext)
     const [userMarathons, setUserMarathons] = useState(null)
+    const [sortedMarathons, setSortedMarathons] = useState(null)
     const [isLoading, setLoading] = useState(true)
+    const [isHidden, setHidden] = useState(true)
 
     const fetchData = async () => {
         try {
             const response = await axiosURL.get(`/users/${getUser.user.id}`, {
                 headers: {
-                    Authorization: `Bearer ${getUser.user.acessToken}`
+                    Authorization: `Bearer ${getUser.user.accessToken}`
                 }
             })
 
             setUserMarathons(response.data)
+            setSortedMarathons(response.data.maratonas)
             setLoading(false)
 
         } catch (error) {
@@ -44,6 +51,22 @@ export function MyMarathons() {
         }
 
     }
+
+    const sortMarathons = (option) => {
+        let sorted = [...userMarathons.maratonas];
+        
+        sorted = sorted.filter((marathon) => marathon.status === option);
+
+        setSortedMarathons(sorted);
+    };
+
+    const handleSearch = (value) => {
+        let filtered = [...userMarathons.maratonas];
+
+        filtered = filtered.filter((marathon) => marathon.nome_maratona.toLowerCase().includes(value.toLowerCase()))
+
+        setSortedMarathons(filtered);
+    };
 
     useEffect(() => {
         fetchData()
@@ -58,44 +81,54 @@ export function MyMarathons() {
                     null
                 ) : (
                     userMarathons.maratonas.length != 0 ? (
-                        <UserStatistics>
-                            <Header>
-                                <h2>Estatísticas</h2>
-                            </Header>
+                        <>
+                            <ShowButton onClick={() => setHidden(isHidden ? false : true)}><ImMenu /> {isHidden ? "Mostrar minhas estatísticas" : "Esconder minhas estatísticas"}</ShowButton>
 
-                            <UserMarathonInfo>
-                                <span className="totalNumber">{userMarathons.maratonas.length}</span>
-                                <span>Maratonas registradas</span>
-                            </UserMarathonInfo>
+                            <UserStatistics hidden={isHidden}>
+                                <HeaderStatistics>
+                                    <AiOutlineAreaChart size={24} /><h2> Estatísticas</h2>
+                                </HeaderStatistics>
 
-                            <Progress>
-                                <span>Maratonas Concluídas (60%)</span>
-                                <LinearProgress
-                                    sx={{
-                                        height: 10,
-                                        borderRadius: 3,
-                                        backgroundColor: 'var(--branco)',
-                                        '& .MuiLinearProgress-bar': {
-                                            backgroundColor: '#2be161'
-                                        }
-                                    }}
-                                    variant="determinate"
-                                    value={60} />
+                                <UserMarathonInfo>
+                                    <div>
+                                        <span className="totalNumber">{userMarathons.maratonas.length}</span>
+                                        <span>Maratonas Registradas</span>
+                                    </div>
+                                    <div>
+                                        <span className="totalNumber">{userMarathons.horas_assistidas}</span>
+                                        <span>Horas Assistidas</span>
+                                    </div>
+                                    <div>
+                                        <span className="totalNumber">{userMarathons.marat_assistidas}</span>
+                                        <span>Maratonas Assistidas</span>
+                                    </div>
+                                    <div>
+                                        <span className="totalNumber">{userMarathons.marat_pendentes}</span>
+                                        <span>Maratonas Pendentes</span>
+                                    </div>
+                                    <div>
+                                        <span className="totalNumber">{userMarathons.marat_canceladas}</span>
+                                        <span>Maratonas Canceladas</span>
+                                    </div>
+                                </UserMarathonInfo>
+                            </UserStatistics>
 
-                                <span>Maratonas Canceladas (60%)</span>
-                                <LinearProgress
-                                    sx={{
-                                        height: 10,
-                                        borderRadius: 3,
-                                        backgroundColor: 'var(--branco)',
-                                        '& .MuiLinearProgress-bar': {
-                                            backgroundColor: 'var(--vermelho)'
-                                        }
-                                    }}
-                                    variant="determinate"
-                                    value={60} />
-                            </Progress>
-                        </UserStatistics>
+                            <Filters>
+                                <Search>
+                                    <input type="text" placeholder="Pesquisar pelo nome da maratona" onChange={(e) => handleSearch(e.target.value)}/><BiSearchAlt size={30} />
+                                </Search>
+
+                                <select id="filters" name="filters" defaultValue="default" onChange={(e) => sortMarathons(e.target.value)}>
+                                    <option value="default" disabled hidden>
+                                        Filtrar por status
+                                    </option>
+                                    <option value="Assistida">Assistidas</option>
+                                    <option value="Pendente">Pendentes</option>
+                                    <option value="Cancelada">Canceladas</option>
+                                </select>
+
+                            </Filters>
+                        </>
                     ) : (null)
                 )
             }
@@ -103,7 +136,7 @@ export function MyMarathons() {
             {
                 !isLoading ? (
                     userMarathons.maratonas.length != 0 ? (
-                        userMarathons.maratonas.map((maratona) => {
+                        sortedMarathons.map((maratona) => {
                             return (
                                 <Marathon key={maratona.id_maratona}>
                                     <Header>
@@ -113,7 +146,7 @@ export function MyMarathons() {
                                             <span><BsFillCalendarFill size={12} /> {maratona.data_inicio} - {maratona.data_final}</span>
                                             <span><span><FaPlay size={12} />Filmes:</span> {maratona.filmes.length}</span>
                                             <span><span><BiSolidTimeFive size={15} />Tempo total:</span> {maratona.tempo_total} min</span>
-                                            <span><span><BsInfoCircleFill size={15} />Status:</span> {maratona.status}</span>
+                                            <span className="status"><span><BsInfoCircleFill size={15} />Status:</span> {maratona.status}</span>
                                         </MarathonInfo>
                                     </Header>
 

@@ -9,9 +9,17 @@ public class MaratonaUserDTO {
 	private String data_inicio;
 	private String data_final;
 	private String status;
+	private Integer tempo_total;
 	private Set<Filme_MaratonaDTO> filmes;
 	
 
+	
+	public Integer getTempo_total() {
+		return tempo_total;
+	}
+	public void setTempo_total(Integer tempo_total) {
+		this.tempo_total = tempo_total;
+	}
 	public Integer getId_maratona() {
 		return id_maratona;
 	}

@@ -47,7 +47,7 @@ export function NewMarathon() {
         try {
             const responseMarathon = await axiosURL.post("/maratona", formMarathon, {
                 headers: {
-                    Authorization: `Bearer ${getUser.user.acessToken}`
+                    Authorization: `Bearer ${getUser.user.accessToken}`
                 }
             })
 
@@ -63,7 +63,7 @@ export function NewMarathon() {
                     }
                 }, {
                     headers: {
-                        Authorization: `Bearer ${getUser.user.acessToken}`
+                        Authorization: `Bearer ${getUser.user.accessToken}`
                     }
                 })
             }
@@ -82,7 +82,14 @@ export function NewMarathon() {
 
     const handleSubmit = (e) => {
         e.preventDefault()
-        newMarathon()
+
+        if (selected.length >= 3)
+            newMarathon()
+        else
+            toast.info('Selecione no mínimo 3 filmes.', {
+                theme: "dark",
+                position: "top-center"
+            })
     }
 
     const handleInput = (e) => {

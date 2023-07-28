@@ -36,13 +36,28 @@ export const Header = styled.div`
     text-align: center;
 `
 
+export const HeaderStatistics = styled.div`
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+`
+
 export const MarathonInfo = styled.div`
     display: flex;
     justify-content: space-between;
     flex-wrap: wrap;
+    gap: 10px;
     
     border-bottom: 1px solid var(--cinza-secundario);
     padding-bottom: 15px;
+
+    .status {
+        background-color: var(--preto);
+        color: var(--branco);
+        border-radius: 7px;
+        padding: 5px;
+    }
 
     span {
         display: flex;
@@ -157,15 +172,14 @@ export const Wrapper = styled.div`
 `
 
 export const UserStatistics = styled.div`
-    display: flex;
+    display: ${props => props.hidden ? 'none' : 'flex'};
     flex-direction: column;
-    padding: 30px;
+    padding-bottom: 30px;
     gap: 20px;
     align-items: center;
 
     background-color: var(--cinza-primario);
-    border-bottom: 7px solid var(--amarelo);
-    border-top: 7px solid var(--amarelo);
+    border-top: 7px solid var(--cinza-secundario);
     border-radius: 7px;
 
     h2 {
@@ -175,8 +189,27 @@ export const UserStatistics = styled.div`
 
 export const UserMarathonInfo = styled.div`
     display: flex;
-    flex-direction: column;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: center;
     align-items: center;
+    gap: 50px;
+    width: 90%;
+
+    div {
+        display: flex;
+        align-items: center;
+        flex-direction: column;
+        padding: 10px;
+        border: 2px solid transparent;
+        border-radius: 5px;
+        transition: 0.5s;
+    }
+
+    div:hover {
+        border: 2px solid #000;
+        box-shadow: 3px 3px 1px #1c1c1c;
+    }
 
     .totalNumber {
         font-size: 24px;
@@ -185,11 +218,67 @@ export const UserMarathonInfo = styled.div`
 `
 
 export const Progress = styled.div`
-    width: 80%;
+    width: 70%;
     display: flex;
     flex-direction: column;
     gap: 20px;
     margin-top: 20px;
+`
+
+export const ShowButton = styled.button`
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 15px;
+    padding: 10px;
+    width: 280px;
+    background-color: var(--amarelo);
+    color: var(--preto);
+    border-radius: 7px;
+    border: none;
+    font-weight: bold;
+    font-size: 18px;
+    cursor: pointer;
+    margin: auto;
+`
+
+export const Filters = styled.div`
+    display: flex;
+    align-items: center;
+    gap: 50px;
+    flex-wrap: wrap;
+    justify-content: center;
+
+    select {
+        padding: 14px;
+        border: none;
+        background-color: var(--cinza-primario);
+        color: var(--branco);
+        border-bottom: 2px solid var(--cinza-secundario);
+        font-size: 18px;
+        font-family: 'Rajdhani',sans-serif;
+    }
+`
+
+export const Search = styled.div`
+    display: flex;
+    align-items: center;
+    width: 70%;
+    gap: 10px;
+    
+    input {
+        width: 100%;
+        padding: 14px;
+        border-radius: 3px;
+        border: none;
+        background-color: var(--cinza-primario);
+        color: var(--branco);
+        border-bottom: 2px solid var(--cinza-secundario);
+        font-size: 18px;
+        font-family: 'Rajdhani', sans-serif;
+        font-weight: bold;
+    }
+    
 `
 
 

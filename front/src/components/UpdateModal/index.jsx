@@ -21,7 +21,8 @@ export function UpdateModal(props) {
 
     const handleUpdate = async () => {
         try {
-            const response = await axiosURL.put("/maratona", {...marathon,
+            const response = await axiosURL.put("/maratona", {
+                ...marathon,
                 user: {
                     id: getUser.user.id
                 }
@@ -59,7 +60,7 @@ export function UpdateModal(props) {
 
     return (
         <>
-            <UpdateButton onClick={handleOpen}><GrUpdate/> Atualizar status</UpdateButton>
+            <UpdateButton onClick={handleOpen}><GrUpdate /> Atualizar status</UpdateButton>
 
             <Modal
                 open={open}
@@ -87,7 +88,7 @@ export function UpdateModal(props) {
                         fontWeight: 'bold'
                     }}>Atualizar status da maratona</span>
 
-                    <label htmlFor="status" style={{fontWeight: 'bold'}}>Selecione o status</label>
+                    <label htmlFor="status" style={{ fontWeight: 'bold' }}>Selecione o status</label>
                     <RadioGroup
                         id="status"
                         aria-labelledby="status da maratona"
@@ -98,24 +99,50 @@ export function UpdateModal(props) {
                             margin: 'auto'
                         }}
                     >
-                        <FormControlLabel value="Assistida" control={<Radio sx={{
-                            color: 'var(--amarelo)',
-                            '&.Mui-checked': {
+                        <FormControlLabel value="Assistida"
+                            sx={{
+                                '.MuiFormControlLabel-label': {
+                                    fontFamily: 'Rajdhani, sans-serif',
+                                    fontWeight: 'bold',
+                                    fontSize: 18
+                                },
+                            }}
+                            control={<Radio sx={{
                                 color: 'var(--amarelo)',
-                            },
-                        }} />} label="Assistida" />
-                        <FormControlLabel value="Pendente" control={<Radio sx={{
-                            color: 'var(--amarelo)',
-                            '&.Mui-checked': {
+                                '&.Mui-checked': {
+                                    color: 'var(--amarelo)',
+                                },
+                            }} />} label="Assistida" />
+
+                        <FormControlLabel value="Pendente"
+                            sx={{
+                                '.MuiFormControlLabel-label': {
+                                    fontFamily: 'Rajdhani, sans-serif',
+                                    fontWeight: 'bold',
+                                    fontSize: 18
+                                },
+                            }}
+                            control={<Radio sx={{
                                 color: 'var(--amarelo)',
-                            },
-                        }} />} label="Pendente" />
-                        <FormControlLabel value="Cancelada" control={<Radio sx={{
-                            color: 'var(--amarelo)',
-                            '&.Mui-checked': {
+                                '&.Mui-checked': {
+                                    color: 'var(--amarelo)',
+                                },
+                            }} />} label="Pendente" />
+
+                        <FormControlLabel value="Cancelada"
+                            sx={{
+                                '.MuiFormControlLabel-label': {
+                                    fontFamily: 'Rajdhani, sans-serif',
+                                    fontWeight: 'bold',
+                                    fontSize: 18
+                                },
+                            }}
+                            control={<Radio sx={{
                                 color: 'var(--amarelo)',
-                            },
-                        }} />} label="Cancelada" />
+                                '&.Mui-checked': {
+                                    color: 'var(--amarelo)',
+                                },
+                            }} />} label="Cancelada" />
                     </RadioGroup>
 
                     <Wrapper>
