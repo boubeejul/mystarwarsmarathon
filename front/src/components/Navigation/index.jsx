@@ -10,8 +10,8 @@ export function Navigation() {
     
     return (
         <Nav>
-            <NavItem active={location.pathname === "/mymarathons"} onClick={() => navigate("/mymarathons")}><BiSolidMoviePlay size={25} /> Minhas Maratonas</NavItem>
-            <NavItem active={location.pathname === "/newmarathon"} className="navTitle" onClick={() => navigate("/newmarathon")}><IoMdAddCircle size={25} />Nova Maratona</NavItem>
+            <NavItem tabIndex={0} active={location.pathname === "/mymarathons"} onClick={() => navigate("/mymarathons")}><BiSolidMoviePlay size={25} /> Minhas Maratonas</NavItem>
+            <NavItem tabIndex={0} active={location.pathname === "/newmarathon"} className="navTitle" onClick={() => navigate("/newmarathon")}><IoMdAddCircle size={25} />Nova Maratona</NavItem>
         </Nav>
     )
 }

@@ -19,7 +19,7 @@ export function Header() {
 
     const handleLogout = () => {
         getUser.logout() 
-        navigate("/")
+        navigate("/login")
     }
 
     return (

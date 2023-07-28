@@ -7,6 +7,9 @@ import {
     Movie,
     MovieInfo,
     MovieList,
+    UserStatistics,
+    Progress,
+    UserMarathonInfo
 } from "./style"
 import { useContext, useState, useEffect } from "react"
 import { UserContext } from "../../contexts/UserContext"
@@ -17,6 +20,7 @@ import { Navigation } from "../../components/Navigation"
 import { BsFillCalendarFill, BsInfoCircleFill } from 'react-icons/bs';
 import { BiSolidTimeFive } from 'react-icons/bi';
 import { FaPlay } from 'react-icons/fa';
+import LinearProgress from '@mui/material/LinearProgress';
 
 export function MyMarathons() {
 
@@ -28,17 +32,17 @@ export function MyMarathons() {
         try {
             const response = await axiosURL.get(`/users/${getUser.user.id}`, {
                 headers: {
-                    Authorization: `Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhZG1pbiIsImlhdCI6MTY5MDQ2NzkyMiwiZXhwIjoxNjkwNTU0MzIyfQ.1WWPV2ntOH4Ef4I1ksIiUQVKtZFbaDklzsJeaiPomog`
+                    Authorization: `Bearer ${getUser.user.acessToken}`
                 }
             })
 
             setUserMarathons(response.data)
+            setLoading(false)
 
         } catch (error) {
             console.log(error)
         }
 
-        setLoading(false)
     }
 
     useEffect(() => {
@@ -49,6 +53,52 @@ export function MyMarathons() {
         <Container>
 
             <Navigation />
+            {
+                isLoading ? (
+                    null
+                ) : (
+                    userMarathons.maratonas.length != 0 ? (
+                        <UserStatistics>
+                            <Header>
+                                <h2>Estatísticas</h2>
+                            </Header>
+
+                            <UserMarathonInfo>
+                                <span className="totalNumber">{userMarathons.maratonas.length}</span>
+                                <span>Maratonas registradas</span>
+                            </UserMarathonInfo>
+
+                            <Progress>
+                                <span>Maratonas Concluídas (60%)</span>
+                                <LinearProgress
+                                    sx={{
+                                        height: 10,
+                                        borderRadius: 3,
+                                        backgroundColor: 'var(--branco)',
+                                        '& .MuiLinearProgress-bar': {
+                                            backgroundColor: '#2be161'
+                                        }
+                                    }}
+                                    variant="determinate"
+                                    value={60} />
+
+                                <span>Maratonas Canceladas (60%)</span>
+                                <LinearProgress
+                                    sx={{
+                                        height: 10,
+                                        borderRadius: 3,
+                                        backgroundColor: 'var(--branco)',
+                                        '& .MuiLinearProgress-bar': {
+                                            backgroundColor: 'var(--vermelho)'
+                                        }
+                                    }}
+                                    variant="determinate"
+                                    value={60} />
+                            </Progress>
+                        </UserStatistics>
+                    ) : (null)
+                )
+            }
 
             {
                 !isLoading ? (
@@ -104,10 +154,10 @@ export function MyMarathons() {
                             <h1>Você não possui maratonas cadastradas.</h1>
                         </Header>)
                 ) : (
-                <Header>
-                    <h1>Carregando..</h1>
-                </Header>)
+                    <Header>
+                        <h1>Carregando..</h1>
+                    </Header>)
             }
-        </Container>
+        </Container >
     )
 }

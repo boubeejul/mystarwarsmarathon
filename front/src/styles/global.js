@@ -28,7 +28,6 @@ export const GlobalStyle = createGlobalStyle`
 
     #root {
         position: relative;
-        overflow: hidden;
     }
 
     :root {

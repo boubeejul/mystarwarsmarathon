@@ -53,7 +53,7 @@ export function Login() {
             <Wrapper>
                 <h1>Faça seu login</h1>
 
-                <LoginForm onSubmit={e => handleSubmit(e)}>
+                <LoginForm onSubmit={e => handleSubmit(e)} role="form">
                     <LoginFormGroup>
                         <label htmlFor="username"><FaUserCircle/> Usuário</label>
                         <input id="username" type="text" placeholder="Usuário123" required onChange={e => handleForm(e)}></input>

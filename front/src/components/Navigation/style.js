@@ -11,13 +11,16 @@ export const Nav = styled.nav`
         gap: 40px;
     }
 `
-export const NavItem = styled.div`
+export const NavItem = styled.button`
     font-size: 30px;
     font-weight: bold;
     display: flex;
     align-items: center;
     gap: 10px;
     padding-bottom: 5px;
+    border: none;
+    background-color: transparent;
+    color: var(--branco);
 
     cursor: pointer;
     border-bottom: ${props => props.active ? '2px solid var(--amarelo)' : 'none'};

@@ -2,7 +2,7 @@ import LogoMain from "../../assets/LogoMain.png"
 import { Container, Info, Wrapper, LoginForm, LoginFormGroup } from "../Login/style"
 import { Button } from "../../components/SubmitButton"
 import { axiosURL } from "../../services/axiosURL"
-import { useState } from "react"
+import { useState, useDeferredValue } from "react"
 import { useNavigate } from "react-router-dom"
 import { FaUserCircle, FaLock, FaEnvelope } from 'react-icons/fa';
 import { toast } from "react-toastify";
@@ -18,6 +18,8 @@ export function Register() {
         role: ["user"]
     })
 
+    const passwordInput = useDeferredValue(form.password);
+
     const handleSubmit = (e) => {
         e.preventDefault()
         handleRegister()
@@ -30,10 +32,10 @@ export function Register() {
     const handleRegister = async () => {
         try {
             const response = await axiosURL.post("/auth/signup", form)
-            
+
             navigate("/mymarathons")
         } catch (error) {
-            toast.error(`(${error.response.status})` + ' Ocorreu um erro ao tentar cadastrar. Tente novamente.', {
+            toast.error(`(${error.response.status})` + ' Ocorreu um erro ao tentar cadastrar. Verifique suas credenciais e tente novamente.', {
                 theme: "dark"
             })
         }
@@ -52,17 +54,20 @@ export function Register() {
 
                 <LoginForm onSubmit={e => handleSubmit(e)} role="form">
                     <LoginFormGroup>
-                        <label htmlFor="username"><FaUserCircle/> Usuário</label>
+                        <label htmlFor="username"><FaUserCircle /> Usuário</label>
                         <input id="username" type="text" placeholder="Usuário123" required onChange={e => handleForm(e)}></input>
                     </LoginFormGroup>
 
                     <LoginFormGroup>
-                        <label htmlFor="password"><FaLock/> Senha</label>
+                        <label htmlFor="password"><FaLock /> Senha</label>
                         <input id="password" type="password" placeholder="******" required onChange={e => handleForm(e)}></input>
+                        {
+                            passwordInput.length > 0 && passwordInput.length < 8 ? (<span style={{textAlign: 'center'}}>A senha deve ter no mínimo 8 caracteres</span>) : (null)
+                        }
                     </LoginFormGroup>
 
                     <LoginFormGroup>
-                        <label htmlFor="email"><FaEnvelope/> Email</label>
+                        <label htmlFor="email"><FaEnvelope /> Email</label>
                         <input id="email" type="email" placeholder="seuemail@mail.com" required onChange={e => handleForm(e)}></input>
                     </LoginFormGroup>
 

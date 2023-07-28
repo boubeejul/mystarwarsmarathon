@@ -156,4 +156,40 @@ export const Wrapper = styled.div`
     gap: 30px;
 `
 
+export const UserStatistics = styled.div`
+    display: flex;
+    flex-direction: column;
+    padding: 30px;
+    gap: 20px;
+    align-items: center;
+
+    background-color: var(--cinza-primario);
+    border-bottom: 7px solid var(--amarelo);
+    border-top: 7px solid var(--amarelo);
+    border-radius: 7px;
+
+    h2 {
+        text-align: center;
+    }
+`
+
+export const UserMarathonInfo = styled.div`
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    .totalNumber {
+        font-size: 24px;
+        font-weight: bold;
+    }
+`
+
+export const Progress = styled.div`
+    width: 80%;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    margin-top: 20px;
+`
+
 
