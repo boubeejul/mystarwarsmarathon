@@ -15,6 +15,8 @@ import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 
 @JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id_maratona", scope = Maratona.class)
 @Entity
@@ -25,15 +27,19 @@ public class Maratona {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id_maratona;
 	
+	@NotBlank(message = "Nome da maratona não informado")
 	@Column(name = "nome_maratona")
 	private String nome_maratona;
 	
+	@NotBlank(message = "Data de início da maratona não informado")
 	@Column(name = "data_inicio")
 	private String data_inicio;
 	
+	@NotBlank(message = "Data final da maratona não informado")
 	@Column(name = "data_final")
 	private String data_final;
 	
+	@NotNull(message = "Status da maratona não informado")
 	@Column(name = "status")
 	private StatusEnum status;
 

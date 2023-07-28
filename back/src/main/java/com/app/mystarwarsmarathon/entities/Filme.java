@@ -9,6 +9,8 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 
 @Entity
 @Table(name = "filme")
@@ -18,15 +20,19 @@ public class Filme {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id_filme;
 	
+	@NotBlank(message = "Nome do filme não informado")
 	@Column(name = "nome_filme")
 	private String nome_filme;
 	
+	@NotNull(message = "Duração do filme não informada")
 	@Column(name = "duracao")
 	private Integer duracao;
 	
+	@NotNull(message = "Ano do filme não informado")
 	@Column(name = "ano")
 	private Integer ano;
 	
+	@NotBlank(message = "Endereço da imagem do filme não informado")
 	@Column(name = "imagem_URL")
 	private String imagem_URL;
 	

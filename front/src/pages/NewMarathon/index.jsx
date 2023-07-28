@@ -5,7 +5,6 @@ import {
     FormGroup,
     Wrapper,
     FormGroupDate,
-
 } from "./style"
 import Checkbox from '@mui/material/Checkbox';
 import FormControlLabel from '@mui/material/FormControlLabel';
@@ -21,7 +20,7 @@ export function NewMarathon() {
 
     const navigate = useNavigate()
     const getUser = useContext(UserContext)
-    const [movies, setMovies] = useState(null)
+    const [movies, setMovies] = useState([])
     const [selected, setSelected] = useState([])
 
     const [formMarathon, setFormMarathon] = useState({
@@ -74,7 +73,7 @@ export function NewMarathon() {
             navigate("/mymarathons")
 
         } catch (error) {
-            toast.error(`(${error.response.status})` + ' Ocorreu um erro ao tentar cadastrar uma maratona. Tente novamente.', {
+            toast.error(`(${error.response.status})` + ' Ocorreu um erro ao tentar registrar uma maratona. Tente novamente.', {
                 theme: "dark"
             })
         }
@@ -152,7 +151,7 @@ export function NewMarathon() {
                     <FormGroup>
                         <label>Lista de filmes</label>
                         {
-                            movies != null ? (
+                            movies.length != 0 ? (
                                 movies.map(movie => {
                                     return (
                                         <FormControlLabel control={<Checkbox id={movie.id_filme} onChange={(e) => handleMovieSelection(e.target.id)}

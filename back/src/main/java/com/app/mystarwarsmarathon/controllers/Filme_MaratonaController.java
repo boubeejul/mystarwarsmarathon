@@ -25,29 +25,37 @@ public class Filme_MaratonaController {
 
 	@Autowired
 	Filme_MaratonaService FMService;
-	
+
 	@GetMapping
 	public ResponseEntity<List<Filme_Maratona>> getAllFilme_Maratona() {
 		return new ResponseEntity<>(FMService.getAllFilme_Maratona(), HttpStatus.OK);
 	}
-	
+
 	@GetMapping("/{id}")
 	public ResponseEntity<Filme_Maratona> getFilme_MaratonaById(@PathVariable Integer id) {
+		Filme_Maratona fmResponse = FMService.getFilme_MaratonaById(id);
+
+		if (fmResponse == null)
+			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+
 		return new ResponseEntity<>(FMService.getFilme_MaratonaById(id), HttpStatus.OK);
 	}
-	
+
 	@PostMapping
 	public ResponseEntity<?> saveFilme_Maratona(@RequestBody @Valid Filme_Maratona filme_maratona) {
 		return new ResponseEntity<>(FMService.saveFilme_Maratona(filme_maratona), HttpStatus.CREATED);
 	}
-	
+
 	@PutMapping
 	public ResponseEntity<?> updateFilme_Maratona(@RequestBody @Valid Filme_Maratona filme_maratona) {
 		return new ResponseEntity<>(FMService.updateFilme_Maratona(filme_maratona), HttpStatus.OK);
 	}
-	
+
 	@DeleteMapping("/{id}")
 	public ResponseEntity<?> deteleFilme_Maratona(@PathVariable Integer id) {
-		return new ResponseEntity<>(FMService.deleteFilme_Maratona(id), HttpStatus.OK);
+		if(FMService.deleteFilme_Maratona(id))
+			return new ResponseEntity<>(HttpStatus.OK);
+		
+		return new ResponseEntity<>(HttpStatus.NOT_FOUND);
 	}
 }

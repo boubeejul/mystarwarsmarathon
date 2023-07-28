@@ -47,7 +47,9 @@ export function MyMarathons() {
             setLoading(false)
 
         } catch (error) {
-            console.log(error)
+            toast.error(`(${error.response.status})` + ' Ocorreu um erro ao tentar carregar suas informações. Tente novamente mais tarde.', {
+                theme: "dark"
+            })
         }
 
     }

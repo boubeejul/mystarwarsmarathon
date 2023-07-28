@@ -18,20 +18,25 @@ export function DeleteModal(props) {
 
     const handleDelete = async () => {
         try {
-            
+
             for await (const filmeMaratona of props.filme_maratona) {
                 await axiosURL.delete(`/filme_maratona/${filmeMaratona.id_filme_maratona}`, {
                     headers: {
-                        Authorization: `Bearer ${getUser.user.acessToken}`
+                        Authorization: `Bearer ${getUser.user.accessToken}`
                     }
                 })
             }
 
-            const response = await axiosURL.delete(`/maratona/${props.id}`)
+            const response = await axiosURL.delete(`/maratona/${props.id}`, {
+                headers: {
+                    Authorization: `Bearer ${getUser.user.accessToken}`
+                }
+            })
+
             navigate(0)
 
         } catch (error) {
-            toast.error(`(${error.response.status})` + ' Ocorreu um erro ao apagar a maratona. Tente novamente.', {
+            toast.error(`(${error.response.status})` + ' Ocorreu um erro ao tentar apagar a maratona. Tente novamente.', {
                 theme: "dark"
             })
         }
@@ -40,7 +45,7 @@ export function DeleteModal(props) {
 
     return (
         <>
-            <DeleteButton onClick={handleOpen}><MdCancel/>Apagar maratona</DeleteButton>
+            <DeleteButton onClick={handleOpen}><MdCancel />Apagar maratona</DeleteButton>
 
             <Modal
                 open={open}

@@ -33,7 +33,10 @@ export function Register() {
         try {
             const response = await axiosURL.post("/auth/signup", form)
 
-            navigate("/mymarathons")
+            toast.success('Conta cadastrada com sucesso, realize seu login.', {
+                theme: "dark"
+            })
+            navigate("/login")
         } catch (error) {
             toast.error(`(${error.response.status})` + ' Ocorreu um erro ao tentar cadastrar. Verifique suas credenciais e tente novamente.', {
                 theme: "dark"

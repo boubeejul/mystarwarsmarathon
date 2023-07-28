@@ -34,6 +34,11 @@ public class MaratonaController {
 	
 	@GetMapping("/{id}")
 	public ResponseEntity<MaratonaDTO> getMaratonaById(@PathVariable Integer id) {
+		MaratonaDTO maratonaResponse = maratonaService.getMaratonaById(id);
+		
+		if(maratonaResponse == null) 
+			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+		
 		return new ResponseEntity<>(maratonaService.getMaratonaById(id), HttpStatus.OK);
 	}
 	
@@ -49,6 +54,9 @@ public class MaratonaController {
 	
 	@DeleteMapping("/{id}")
 	public ResponseEntity<?> deteleMaratona(@PathVariable Integer id) {
-		return new ResponseEntity<>(maratonaService.deleteMaratona(id), HttpStatus.OK);
+		if(maratonaService.deleteMaratona(id))
+			return new ResponseEntity<>(HttpStatus.OK);
+		
+		return new ResponseEntity<>(HttpStatus.NOT_FOUND);
 	}
 }

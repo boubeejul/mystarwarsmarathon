@@ -26,29 +26,37 @@ public class FilmeController {
 
 	@Autowired
 	FilmeService filmeService;
-	
+
 	@GetMapping
 	public ResponseEntity<List<Filme>> getAllFilmes() {
 		return new ResponseEntity<>(filmeService.getAllFilmes(), HttpStatus.OK);
 	}
-	
+
 	@GetMapping("/{id}")
 	public ResponseEntity<FilmeDTO> getFilmeById(@PathVariable Integer id) {
+		FilmeDTO filmeResponse = filmeService.getFilmeById(id);
+
+		if (filmeResponse == null)
+			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+
 		return new ResponseEntity<>(filmeService.getFilmeById(id), HttpStatus.OK);
 	}
-	
+
 	@PostMapping
 	public ResponseEntity<?> saveFilme(@RequestBody @Valid Filme filme) {
 		return new ResponseEntity<>(filmeService.saveFilme(filme), HttpStatus.CREATED);
 	}
-	
+
 	@PutMapping
 	public ResponseEntity<?> updateFilme(@RequestBody @Valid Filme filme) {
 		return new ResponseEntity<>(filmeService.updateFilme(filme), HttpStatus.OK);
 	}
-	
+
 	@DeleteMapping("/{id}")
 	public ResponseEntity<?> deteleFilme(@PathVariable Integer id) {
-		return new ResponseEntity<>(filmeService.deleteFilme(id), HttpStatus.OK);
+		if(filmeService.deleteFilme(id))
+			return new ResponseEntity<>(HttpStatus.OK);
+		
+		return new ResponseEntity<>(HttpStatus.NOT_FOUND);
 	}
 }

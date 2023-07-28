@@ -12,7 +12,6 @@ import com.app.mystarwarsmarathon.dto.FilmeDTO;
 import com.app.mystarwarsmarathon.dto.Filme_MaratonaDTO;
 import com.app.mystarwarsmarathon.dto.MaratonaUserDTO;
 import com.app.mystarwarsmarathon.dto.UserDTO;
-import com.app.mystarwarsmarathon.entities.Filme;
 import com.app.mystarwarsmarathon.entities.Filme_Maratona;
 import com.app.mystarwarsmarathon.entities.Maratona;
 import com.app.mystarwarsmarathon.entities.User;

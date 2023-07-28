@@ -15,7 +15,6 @@ export const UserProvider = ({ children }) => {
     const getUser = (data) => {
         storeLogin(data)
         setUser(data)
-        console.log(data)
     }
 
     const storeLogin = (user) => {

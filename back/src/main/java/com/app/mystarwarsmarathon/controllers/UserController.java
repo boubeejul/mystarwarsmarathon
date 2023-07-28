@@ -22,20 +22,28 @@ public class UserController {
 
 	@Autowired
 	UserService userService;
-	
+
 	@GetMapping
 	public ResponseEntity<List<User>> getAllUser() {
 		return new ResponseEntity<>(userService.getAllUsers(), HttpStatus.OK);
 	}
-	
+
 	@GetMapping("/{id}")
 	public ResponseEntity<UserDTO> getUserById(@PathVariable Integer id) {
+		UserDTO userResponse = userService.getUserById(id);
+
+		if (userResponse == null)
+			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+
 		return new ResponseEntity<>(userService.getUserById(id), HttpStatus.OK);
 	}
-	
+
 	@PreAuthorize("hasRole('ADMIN')")
 	@DeleteMapping("/{id}")
-	public ResponseEntity<?> deleteUser (@PathVariable Integer id) {
-		return new ResponseEntity<>(userService.deleteById(id), HttpStatus.OK);
+	public ResponseEntity<?> deleteUser(@PathVariable Integer id) {
+		if (userService.deleteById(id))
+			return new ResponseEntity<>(HttpStatus.OK);
+
+		return new ResponseEntity<>(HttpStatus.NOT_FOUND);
 	}
 }
