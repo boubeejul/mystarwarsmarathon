@@ -7,7 +7,7 @@ export const UserProvider = ({ children }) => {
     let localUser = null
 
     if(localStorage.getItem("user") != undefined) 
-        localUser = JSON.parse(atob(localStorage.getItem("user")))
+        localUser = JSON.parse(localStorage.getItem("user"))
 
     const [user, setUser] = useState(localUser != null ? localUser: {})
     const [isLogged, setLogged] = useState(localUser != null ? true : false)
@@ -18,7 +18,7 @@ export const UserProvider = ({ children }) => {
     }
 
     const storeLogin = (user) => {
-        localStorage.setItem("user", btoa(JSON.stringify(user)))
+        localStorage.setItem("user", JSON.stringify(user))
         setLogged(true)
     }
 
