@@ -105,7 +105,7 @@ export function NewMarathon() {
     const handleMovieSelection = (id) => {
         let list = [...selected]
 
-        let already = list.findIndex(movie => movie.id_filme === id)
+        let already = list.findIndex(movie => movie.id_filme == id)
 
         if (already > -1) {
             list.splice(already, 1)
