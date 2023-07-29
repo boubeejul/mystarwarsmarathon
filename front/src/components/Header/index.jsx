@@ -30,7 +30,7 @@ export function Header() {
                 <UserWrapper>
                     <span className="username"><FaUser/> {getUser.user.username}</span>
 
-                    <Button sx={{ color: 'var(--branco)', fontFamily: 'Rajdhani', fontSize: 18, fontWeight: 'bold', gap: 2 }} onClick={handleOpen}>Sair <RiLogoutBoxRFill/></Button>
+                    <Button sx={{ color: 'var(--branco)', fontFamily: 'Rajdhani', fontSize: 18, fontWeight: 'bold', gap: 2, alignItems: 'center', lineHeight: 0 }} onClick={handleOpen}>Sair <RiLogoutBoxRFill/></Button>
                     <Modal
                         open={open}
                         onClose={handleClose}
